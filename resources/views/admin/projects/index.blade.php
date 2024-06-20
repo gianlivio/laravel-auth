@@ -8,7 +8,7 @@
                     <h1>Projects</h1>
                     <div>
                         <a href="{{ route('admin.projects.create') }}" class="btn btn-primary">Create New Project</a>
-                        
+                        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
                     </div>
                 </div>
                 <div class="card">
@@ -28,7 +28,9 @@
                                         <th scope="row">{{ $project->slug }}</th>
                                         <td>{{ $project->name }}</td>
                                         <td>{{ Str::limit($project->description, 20) }}</td>
-
+                                        <td>
+                                            <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-primary">Edit</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
