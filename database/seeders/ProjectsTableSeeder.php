@@ -16,9 +16,12 @@ class ProjectsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         for ($i = 0; $i < 10; $i++) {
+
+          
+
             $newProject = new Project();
 
-            $newProject->name = $faker->sentence(2);
+            $newProject->name = $faker->unique()->sentence(2);
             $newProject->description = $faker->text(500);
             $newProject->slug = Str::slug($newProject->name, '_');
             $newProject->save();

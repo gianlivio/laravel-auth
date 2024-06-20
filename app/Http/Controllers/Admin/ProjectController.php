@@ -30,15 +30,29 @@ class ProjectController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
+        // validazione unicità del nome nuovi item
+        $request->validate([
+            'name' => 'required|string|max:255|unique:projects,name',
+            'description' => 'required|string',
+        ]);
+
+        // Ottenere i dati dal request
         $projectData = $request->all();
-        
+
+        // Creare una nuova istanza di Project
         $newProject = new Project();
         $newProject->fill($projectData);
+
+        // Generare lo slug dal nome
         $newProject->slug = Str::slug($newProject->name, '_');
+
+        // Salvare il progetto
         $newProject->save();
 
-        return redirect()->route('admin.projects.index');
+        // Reindirizzare alla lista dei progetti con un messaggio di successo (with)
+
+        return redirect()->route('admin.projects.index')->with('success', 'Project created successfully');;
     }
 
     /**
