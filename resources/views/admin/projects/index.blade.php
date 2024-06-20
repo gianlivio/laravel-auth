@@ -13,6 +13,11 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <table class="table">
                             <thead>
                                 <tr>
@@ -29,7 +34,13 @@
                                         <td>{{ $project->name }}</td>
                                         <td>{{ Str::limit($project->description, 20) }}</td>
                                         <td>
+                                            <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-info">View</a>
                                             <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-primary">Edit</a>
+                                            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

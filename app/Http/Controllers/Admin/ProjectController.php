@@ -44,9 +44,10 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $project = Project::findOrFail($id);
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -82,6 +83,11 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        {
+            $project = Project::findOrFail($id);
+            $project->delete();
+    
+            return redirect()->route('admin.projects.index')->with('success', 'Project deleted successfully');
+        }
     }
 }
