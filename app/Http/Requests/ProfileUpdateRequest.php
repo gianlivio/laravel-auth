@@ -16,8 +16,19 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'name' => 'required|string|max:255|unique:projects,name',
+            'description' => 'required|string',
         ];
+    }
+    @return array
+     
+    public function messages()
+    {
+        return [
+            'name.required' => 'Il nome del progetto è obbligatorio.',
+            'name.unique' => 'Il nome del progetto esiste già. Si prega di scegliere un nome diverso.',
+            'description.required' => 'La descrizione è obbligatoria.',
+        ];
+
     }
 }

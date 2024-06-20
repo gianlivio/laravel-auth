@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreProjectRequest;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -29,15 +30,9 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {   
         // validazione unicità del nome nuovi item
-        $request->validate([
-            'name' => 'required|string|max:255|unique:projects,name',
-            'description' => 'required|string',
-        ]);
-
-        // Ottenere i dati dal request
         $projectData = $request->all();
 
         // Creare una nuova istanza di Project
